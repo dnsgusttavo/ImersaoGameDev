@@ -87,7 +87,7 @@ function setup() {
   enemy = new Enemy(matrixEnemy, enemyImage, width - 52, 52, 52, 104, 104)
   
   backgroundMusic.loop();
-  backgroundMusic.output.gain.value = 0;
+  backgroundMusic.output.gain.value = 0.01;
   frameRate(40);
 }
 

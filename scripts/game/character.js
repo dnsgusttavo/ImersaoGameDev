@@ -10,7 +10,8 @@ class Character extends Animate{
     }
 
     jump(){
-        this.jumpSpeed = -30 
+        if(this. y > this.heightChar)
+            this.jumpSpeed = -30
     }
 
     setGravity(){
