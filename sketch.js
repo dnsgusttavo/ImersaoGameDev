@@ -1,7 +1,7 @@
 let backgroundImage;
 let characterImage;
 let enemyImage;
-
+let jumpSound;
 let scene;
 let backgroundMusic;
 let character;
@@ -61,13 +61,17 @@ function preload(){
     backgroundImage = loadImage('./imagens/cenario/floresta.png');
     characterImage = loadImage('./imagens/personagem/correndo.png');
     backgroundMusic = loadSound('./sons/trilha_jogo.mp3');
+    jumpSound = loadSound('./sons/somPulo.mp3')
     enemyImage = loadImage('./imagens/inimigos/gotinha.png')
 }
 
 function keyPressed(){
   console.log(key)
-    if(key === " ")
+    if(key === " "){
       character.jump();
+      jumpSound.play();
+    }
+      
     if(key == "-" && backgroundMusic.output.gain.value > 0.05)
       backgroundMusic.output.gain.value -= 0.05
     if(key == "+" && backgroundMusic.output.gain.value < 1)
@@ -104,4 +108,3 @@ function draw() {
     character.jump();
   }
 }
-

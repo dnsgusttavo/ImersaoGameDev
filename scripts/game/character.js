@@ -23,7 +23,7 @@ class Character extends Animate{
     }
 
     isColliding(enemy, debugMode = false){
-
+        const precision = .81; 
         if(debugMode){
             noFill();
             stroke('red');
@@ -31,7 +31,14 @@ class Character extends Animate{
             rect(this.x, this.y, this.widthChar, this.heightChar);
             rect(enemy.x, enemy.y, enemy.widthChar, enemy.heightChar)
         }
-        
-         return collideRectRect(this.x, this.y, this.widthChar, this.heightChar,enemy.x, enemy.y, enemy.widthChar, enemy.heightChar)
+         return collideRectRect(this.x,
+                                this.y,
+                                this.widthChar * precision,
+                                this.heightChar * precision,
+                                enemy.x,
+                                enemy.y, 
+                                enemy.widthChar * precision, 
+                                enemy.heightChar * precision)
+            
     }
 }
