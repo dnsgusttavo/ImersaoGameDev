@@ -7,6 +7,8 @@ let backgroundMusic;
 let character;
 let enemy;
 
+
+
 const matrixEnemy = [
   [0, 0],
   [104, 0],
@@ -66,10 +68,11 @@ function preload(){
 }
 
 function keyPressed(){
-  console.log(key)
     if(key === " "){
-      character.jump();
-      jumpSound.play();
+      //Reproduce sound only jump
+      if(character.jump()){
+          jumpSound.play()
+      }
     }
       
     if(key == "-" && backgroundMusic.output.gain.value > 0.05)
@@ -102,6 +105,7 @@ function draw() {
   character.setGravity();
   enemy.show();
   enemy.move();
+  
 
   if(character.isColliding(enemy,true)){
     console.log("Bateu")

@@ -7,11 +7,23 @@ class Character extends Animate{
         this.currentFrame = 1;
         this.jumpSpeed = 0;
         this.gravity = 3;
+        this.jumps = 0;
+        this.jumpLimit = 2;
     }
 
     jump(){
-        if(this. y > this.heightChar)
-            this.jumpSpeed = -30
+        //Verify if character is on floor
+        if(this.y == this.yBase){
+            this.jumps = 0;
+        }
+
+        //Verify jump amount
+        if(this.jumps < this.jumpLimit){
+            this.jumpSpeed = -35;
+            this.jumps += 1;
+            return true;
+        }
+        
     }
 
     setGravity(){
@@ -20,6 +32,7 @@ class Character extends Animate{
 
         if(this.y > this.yBase)
             this.y = this.yBase
+
     }
 
     isColliding(enemy, debugMode = false){
