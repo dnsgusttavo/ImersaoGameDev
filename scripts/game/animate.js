@@ -23,4 +23,6 @@ class Animate{
         if(this.currentFrame >= this.matrix.length - 1)
             this.currentFrame = 0;
     }
+
+   
 }

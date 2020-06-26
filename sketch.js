@@ -37,6 +37,24 @@ const matrixEnemy = [
   [208, 626],
   [312, 626],
 ]
+const matrixCharacter = [
+  [0, 0],
+  [220, 0],
+  [440, 0],
+  [660, 0],
+  [0, 270],
+  [220, 270],
+  [440, 270],
+  [660, 270],
+  [0, 540],
+  [220, 540],
+  [440, 540],
+  [660, 540],
+  [0, 810],
+  [220, 810],
+  [440, 810],
+  [660, 810]
+]
 
 
 function preload(){
@@ -46,12 +64,18 @@ function preload(){
     enemyImage = loadImage('./imagens/inimigos/gotinha.png')
 }
 
+function keyPressed(){
+  console.log(key)
+    if(key === " ")
+      character.jump();
+}
+
 function setup() {
   //Create canvas
   createCanvas(windowWidth, windowHeight);
 
   scene = new Scene(backgroundImage,3);
-  character = new Character(characterImage)
+  character = new Character(matrixCharacter, characterImage, 0, 220, 270, 220, 270)
   //(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite
   enemy = new Enemy(matrixEnemy, enemyImage, width - 52, 52, 52, 104, 104)
 
@@ -63,6 +87,7 @@ function draw() {
   scene.show();
   scene.move();
   character.show();
+  character.setGravity();
   enemy.show();
   enemy.move();
 }

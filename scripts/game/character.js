@@ -1,38 +1,23 @@
-class Character{
-    constructor(img){
-        this.img = img;
-        this.matrix = [
-            [0, 0],
-            [220, 0],
-            [440, 0],
-            [660, 0],
-            [0, 270],
-            [220, 270],
-            [440, 270],
-            [660, 270],
-            [0, 540],
-            [220, 540],
-            [440, 540],
-            [660, 540],
-            [0, 810],
-            [220, 810],
-            [440, 810],
-            [660, 810]
-        ]
+class Character extends Animate{
+    constructor(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite){
+        super(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite);
+        
+        this.yBase = height - heightChar;
+        this.y = this.yBase;
         this.currentFrame = 1;
+        this.jumpSpeed = 0;
+        this.gravity = 6 ;
     }
 
-    show(){
-        //image(var, screenX, screenY, imageW, ImSageH, imageX, ImageY, showW, showH)
-        image(this.img, 0, height - 270, 220, 270, this.matrix[this.currentFrame][0], this.matrix[this.currentFrame][1], 220, 270)
-        this.animate();
+    jump(){
+        this.jumpSpeed = -50 
     }
 
-    animate(){
-        this.currentFrame++;
+    setGravity(){
+        this. y += this.jumpSpeed;
+        this.jumpSpeed += +this.gravity;
 
-        if(this.currentFrame >= this.matrix.length - 1)
-            this.currentFrame = 0;
+        if(this.y > this.yBase)
+            this.y = this.yBase
     }
-
 }
