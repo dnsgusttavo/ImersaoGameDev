@@ -24,7 +24,7 @@ class Character{
 
     show(){
         //image(var, screenX, screenY, imageW, ImSageH, imageX, ImageY, showW, showH)
-        image(this.img, 80, height - 270, 220, 270, this.matrix[this.currentFrame][0], this.matrix[this.currentFrame][1], 220, 270)
+        image(this.img, 0, height - 270, 220, 270, this.matrix[this.currentFrame][0], this.matrix[this.currentFrame][1], 220, 270)
         this.animate();
     }
 
