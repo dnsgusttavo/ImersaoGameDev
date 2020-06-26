@@ -8,8 +8,9 @@ let backgroundMusic;
 let character;
 let enemy;
 let bigEnemy;
-
-
+let gameOverSound;
+let enemyFlyingImage;
+let enemyFlying;
 
 const matrixEnemy = [
   [0, 0],
@@ -92,6 +93,26 @@ const matrixCharacter = [
   [660, 810]
 ]
 
+const matrixEnemyFlying = [
+  [0,0],
+  [200, 0],
+  [400, 0],
+  [0, 150],
+  [200, 150],
+  [400, 150],
+  [0, 300],
+  [200, 300],
+  [400, 300],
+  [0, 450],
+  [200, 450],
+  [400, 450],
+  [0, 600],
+  [200, 600],
+  [400, 600],
+  [0, 750],
+]
+
+const enemies = [];
 
 function preload(){
     backgroundImage = loadImage('./imagens/cenario/floresta.png');
@@ -99,7 +120,9 @@ function preload(){
     backgroundMusic = loadSound('./sons/trilha_jogo.mp3');
     jumpSound = loadSound('./sons/somPulo.mp3')
     enemyImage = loadImage('./imagens/inimigos/gotinha.png')
+    enemyFlyingImage = loadImage('./imagens/inimigos/gotinha-voadora.png');
     bigEnemyImage = loadImage('./imagens/inimigos/troll.png')
+    gameOverSound = loadSound('./sons/game_over.mp3');
 }
 
 function keyPressed(){
@@ -109,7 +132,9 @@ function keyPressed(){
           jumpSound.play()
       }
     }
-      
+    
+    if(key == "r")
+      loop();
     if(key == "-" && backgroundMusic.output.gain.value > 0.05)
       backgroundMusic.output.gain.value -= 0.05
     if(key == "+" && backgroundMusic.output.gain.value < 1)
@@ -126,9 +151,14 @@ function setup() {
   scene = new Scene(backgroundImage,3);
   character = new Character(matrixCharacter, characterImage, 0, 30, 110, 145, 220, 270)
   //(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite
-  enemy = new Enemy(matrixEnemy, enemyImage, width, 30, 52, 52, 104, 104, 10, 100)
-  bigEnemy = new Enemy(matrixBigEnemy, bigEnemyImage, width - 400, 25, 200, 170, 400, 340, 10, 500)
+  const enemy = new Enemy(matrixEnemy, enemyImage, width, 30, 52, 52, 104, 104, 10, 200)
+  const bigEnemy = new Enemy(matrixBigEnemy, bigEnemyImage, width - 400, 25, 200, 170, 400, 340, 10, 2000)
+  const enemyFlying = new Enemy(matrixEnemyFlying, enemyFlyingImage, width, 200, 100, 75, 200, 150, 10, 1200)
   
+  enemies.push(enemy);
+  enemies.push(bigEnemy);
+  enemies.push(enemyFlying);
+
   backgroundMusic.loop();
   backgroundMusic.output.gain.value = 0.01;
   frameRate(40);
@@ -139,24 +169,31 @@ function draw() {
   scene.move();
   character.show();
   character.setGravity();
-  enemy.show();
-  enemy.move();
-  bigEnemy.show();
-  bigEnemy.move();
+  
+  // bigEnemy.show();
+  // bigEnemy.move();
+  // enemyFlying.show();
+  // enemyFlying.move();
+  
+  enemies.forEach( enemy => {
+      enemy.show();
+      enemy.move();
+
+      if(character.isColliding(enemy,false)){
+          console.log("Collision!");
+          gameOverSound.play();
+          noLoop();
+        }
+
+        //Game IA Bot is disabled
+      //   if(character.willCollide(enemy)){
+      //      console.log("[GAME IA] Collision object detected!")
+      //     if(character.jump()) jumpSound.play()
+      // }
+
+  })
+
   
 
-  if(character.isColliding(enemy,true) || character.isColliding(bigEnemy,true)){
-    console.log("Bateu")
-    
-    // noLoop();
-  }
 
-  if(character.willCollide(enemy) || character.willCollide(bigEnemy)){
-    console.log("Vai bater")
-    
-      if(character.jump()){
-        jumpSound.play()
-      }
-
-  }
 }

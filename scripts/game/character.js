@@ -9,7 +9,7 @@ class Character extends Animate{
         this.jumpSpeed = 0;
         this.gravity = 3;
         this.jumps = 0;
-        this.jumpLimit = 3;
+        this.jumpLimit = 2;
     }
 
     jump(){

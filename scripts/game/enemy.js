@@ -3,6 +3,7 @@ class Enemy extends Animate{
         super(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite);
         this.speed = speed;
         this.delay = delay;
+        this.x = width + this.delay
     }
 
     move(){
