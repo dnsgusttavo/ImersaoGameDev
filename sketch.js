@@ -98,5 +98,10 @@ function draw() {
   character.setGravity();
   enemy.show();
   enemy.move();
+
+  if(character.isColliding(enemy,true)){
+    console.log("Bateu")
+    character.jump();
+  }
 }
 

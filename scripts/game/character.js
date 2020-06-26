@@ -21,4 +21,17 @@ class Character extends Animate{
         if(this.y > this.yBase)
             this.y = this.yBase
     }
+
+    isColliding(enemy, debugMode = false){
+
+        if(debugMode){
+            noFill();
+            stroke('red');
+            strokeWeight(4);
+            rect(this.x, this.y, this.widthChar, this.heightChar);
+            rect(enemy.x, enemy.y, enemy.widthChar, enemy.heightChar)
+        }
+        
+         return collideRectRect(this.x, this.y, this.widthChar, this.heightChar,enemy.x, enemy.y, enemy.widthChar, enemy.heightChar)
+    }
 }
