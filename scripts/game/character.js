@@ -10,6 +10,7 @@ class Character extends Animate{
         this.gravity = 3;
         this.jumps = 0;
         this.jumpLimit = 2;
+        this.jumpHeight = -35
     }
 
     jump(){
@@ -20,7 +21,7 @@ class Character extends Animate{
 
         //Verify jump amount
         if(this.jumps < this.jumpLimit){
-            this.jumpSpeed = -35;
+            this.jumpSpeed = this.jumpHeight;
             this.jumps += 1;
             return true;
         }

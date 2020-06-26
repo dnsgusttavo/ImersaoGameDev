@@ -11,6 +11,8 @@ let bigEnemy;
 let gameOverSound;
 let enemyFlyingImage;
 let enemyFlying;
+let score;
+let gameOverImage;
 
 const matrixEnemy = [
   [0, 0],
@@ -115,6 +117,7 @@ const matrixEnemyFlying = [
 const enemies = [];
 
 function preload(){
+    gameOverImage = loadImage('./imagens/assets/game-over.png')
     backgroundImage = loadImage('./imagens/cenario/floresta.png');
     characterImage = loadImage('./imagens/personagem/correndo.png');
     backgroundMusic = loadSound('./sons/trilha_jogo.mp3');
@@ -154,7 +157,7 @@ function setup() {
   const enemy = new Enemy(matrixEnemy, enemyImage, width, 30, 52, 52, 104, 104, 10, 200)
   const bigEnemy = new Enemy(matrixBigEnemy, bigEnemyImage, width - 400, 25, 200, 170, 400, 340, 10, 2000)
   const enemyFlying = new Enemy(matrixEnemyFlying, enemyFlyingImage, width, 200, 100, 75, 200, 150, 10, 1200)
-  
+  score = new Score();
   enemies.push(enemy);
   enemies.push(bigEnemy);
   enemies.push(enemyFlying);
@@ -169,6 +172,8 @@ function draw() {
   scene.move();
   character.show();
   character.setGravity();
+  score.show();
+  score.add();
   
   // bigEnemy.show();
   // bigEnemy.move();
@@ -180,8 +185,10 @@ function draw() {
       enemy.move();
 
       if(character.isColliding(enemy,false)){
-          console.log("Collision!");
-          gameOverSound.play();
+          filter(BLUR, 3) 
+          image(gameOverImage, width/2 - 200, height/2 - 50);
+          score.show();
+          // gameOverSound.play();
           noLoop();
         }
 
