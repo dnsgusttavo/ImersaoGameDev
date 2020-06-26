@@ -1,13 +1,14 @@
 class Enemy extends Animate{
-    constructor(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite){
-        super(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite);
-        this.speed = 10;
+    constructor(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite, speed, delay){
+        super(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite);
+        this.speed = speed;
+        this.delay = delay;
     }
 
     move(){
         this.x = this.x - this.speed;
 
-        if(this.x < -this.widthChar)
+        if(this.x < -this.widthChar - this.delay)
             this.x = width;
     }
 }

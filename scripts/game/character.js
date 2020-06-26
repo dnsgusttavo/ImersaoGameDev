@@ -1,14 +1,15 @@
 class Character extends Animate{
-    constructor(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite){
-        super(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite);
+    constructor(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite){
+        super(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite);
         
-        this.yBase = height - heightChar;
+        this.charY = charY;
+        this.yBase = height - heightChar - charY;
         this.y = this.yBase;
         this.currentFrame = 1;
         this.jumpSpeed = 0;
         this.gravity = 3;
         this.jumps = 0;
-        this.jumpLimit = 2;
+        this.jumpLimit = 3;
     }
 
     jump(){
@@ -28,15 +29,31 @@ class Character extends Animate{
 
     setGravity(){
         this. y += this.jumpSpeed;
-        this.jumpSpeed += +this.gravity;
+        this.jumpSpeed += this.gravity;
 
         if(this.y > this.yBase)
             this.y = this.yBase
 
     }
 
+    //Function to verify if character will colide
+    willCollide(enemy){
+        noFill();
+            stroke('blue');
+            strokeWeight(4);
+            rect(this.x, this.y, this.widthChar + 80, this.heightChar + 80);
+
+        return collideRectRect(this.x, this.y,
+            this.widthChar,
+            this.heightChar,
+            enemy.x,
+            enemy.y, 
+            enemy.widthChar +80, 
+            enemy.heightChar +80)    
+    }
+
     isColliding(enemy, debugMode = false){
-        const precision = .81; 
+        const precision = .65; 
         if(debugMode){
             noFill();
             stroke('red');

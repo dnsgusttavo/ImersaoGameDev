@@ -1,11 +1,12 @@
 class Animate{
-    constructor(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite){
+    constructor(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite){
         this.matrix = matrix;
         this.img = img;
         this.x = x;
+        this.charY = charY;
         this.widthChar = widthChar;
         this.heightChar = heightChar;
-        this.y = height - heightChar;
+        this.y = height - heightChar - charY;
         this.widthSprite = widthSprite;
         this.heightSprite = heightSprite;
         this.currentFrame = 0;

@@ -1,11 +1,13 @@
 let backgroundImage;
 let characterImage;
 let enemyImage;
+let bigEnemyImage;
 let jumpSound;
 let scene;
 let backgroundMusic;
 let character;
 let enemy;
+let bigEnemy;
 
 
 
@@ -39,6 +41,38 @@ const matrixEnemy = [
   [208, 626],
   [312, 626],
 ]
+
+const matrixBigEnemy = [
+  [0,0],
+  [400,0],
+  [800,0],
+  [1200,0],
+  [1600,0],
+  [0,400],
+  [400,400],
+  [800,400],
+  [1200, 400],
+  [1600, 400],
+  [0,800],
+  [400, 800],
+  [800, 800],
+  [1200, 800],
+  [1600, 800],
+  [0, 1200],
+  [400, 1200],
+  [800, 1200],
+  [1200, 1200],
+  [1600, 1200], 
+  [0, 1600],
+  [400, 1600],
+  [800, 1600],
+  [1200, 1600],
+  [1600, 1600],
+  [0, 2000],
+  [400, 2000],
+  [800, 2000],
+]
+
 const matrixCharacter = [
   [0, 0],
   [220, 0],
@@ -65,6 +99,7 @@ function preload(){
     backgroundMusic = loadSound('./sons/trilha_jogo.mp3');
     jumpSound = loadSound('./sons/somPulo.mp3')
     enemyImage = loadImage('./imagens/inimigos/gotinha.png')
+    bigEnemyImage = loadImage('./imagens/inimigos/troll.png')
 }
 
 function keyPressed(){
@@ -89,9 +124,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   scene = new Scene(backgroundImage,3);
-  character = new Character(matrixCharacter, characterImage, 0, 220, 270, 220, 270)
+  character = new Character(matrixCharacter, characterImage, 0, 30, 110, 145, 220, 270)
   //(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite
-  enemy = new Enemy(matrixEnemy, enemyImage, width - 52, 52, 52, 104, 104)
+  enemy = new Enemy(matrixEnemy, enemyImage, width, 30, 52, 52, 104, 104, 10, 100)
+  bigEnemy = new Enemy(matrixBigEnemy, bigEnemyImage, width - 400, 25, 200, 170, 400, 340, 10, 500)
   
   backgroundMusic.loop();
   backgroundMusic.output.gain.value = 0.01;
@@ -105,10 +141,22 @@ function draw() {
   character.setGravity();
   enemy.show();
   enemy.move();
+  bigEnemy.show();
+  bigEnemy.move();
   
 
-  if(character.isColliding(enemy,true)){
+  if(character.isColliding(enemy,true) || character.isColliding(bigEnemy,true)){
     console.log("Bateu")
-    character.jump();
+    
+    // noLoop();
+  }
+
+  if(character.willCollide(enemy) || character.willCollide(bigEnemy)){
+    console.log("Vai bater")
+    
+      if(character.jump()){
+        jumpSound.play()
+      }
+
   }
 }
