@@ -68,6 +68,13 @@ function keyPressed(){
   console.log(key)
     if(key === " ")
       character.jump();
+    if(key == "-" && backgroundMusic.output.gain.value > 0.05)
+      backgroundMusic.output.gain.value -= 0.05
+    if(key == "+" && backgroundMusic.output.gain.value < 1)
+      backgroundMusic.output.gain.value += 0.05
+    if(key == "m")
+      (backgroundMusic.output.gain.value == 0) ? backgroundMusic.output.gain.value = 1 : backgroundMusic.output.gain.value = 0;
+    
 }
 
 function setup() {
@@ -78,8 +85,9 @@ function setup() {
   character = new Character(matrixCharacter, characterImage, 0, 220, 270, 220, 270)
   //(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite
   enemy = new Enemy(matrixEnemy, enemyImage, width - 52, 52, 52, 104, 104)
-
-  // backgroundMusic.loop();
+  
+  backgroundMusic.loop();
+  backgroundMusic.output.gain.value = 0;
   frameRate(40);
 }
 

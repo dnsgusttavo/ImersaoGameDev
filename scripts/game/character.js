@@ -6,11 +6,11 @@ class Character extends Animate{
         this.y = this.yBase;
         this.currentFrame = 1;
         this.jumpSpeed = 0;
-        this.gravity = 6 ;
+        this.gravity = 3;
     }
 
     jump(){
-        this.jumpSpeed = -50 
+        this.jumpSpeed = -30 
     }
 
     setGravity(){
