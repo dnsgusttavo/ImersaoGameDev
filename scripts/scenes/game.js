@@ -67,7 +67,7 @@ class Game{
     image(gameOverImage, width/2 - 200, height/2 - 50);
     score.show();
     gameOverSound.play();
-    // noLoop();
+    noLoop();
   }
   //  Game IA Bot is disabled
   // if(character.willCollide(enemy, false)){
@@ -76,5 +76,5 @@ class Game{
   //       jumpSound.play()
   //     character.walkRight();
   //   }
-  // }  
+  }  
 }
