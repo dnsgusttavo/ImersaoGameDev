@@ -185,15 +185,15 @@ function draw() {
       enemy.move();
 
       if(character.isColliding(enemy,false)){
-          filter(BLUR, 3) 
+          // filter(BLUR, 3) 
           image(gameOverImage, width/2 - 200, height/2 - 50);
           score.show();
-          // gameOverSound.play();
+          gameOverSound.play();
           noLoop();
         }
 
-        //Game IA Bot is disabled
-      //   if(character.willCollide(enemy)){
+        // Game IA Bot is disabled
+      //   if(character.willCollide(enemy, false)){
       //      console.log("[GAME IA] Collision object detected!")
       //     if(character.jump()) jumpSound.play()
       // }
