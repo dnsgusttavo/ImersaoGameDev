@@ -14,7 +14,7 @@ let enemyFlying;
 let score;
 let gameOverImage;
 let game;
-let currentScene = 'game';
+let currentScene = 'startScreen';
 let scenes;
 let startScreen;
 let startScreenImage;
