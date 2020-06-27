@@ -50,6 +50,7 @@ class Character extends Animate{
         const enemyDiameter = enemy.widthChar * precisionEnemy;
 
         if(debugMode){
+            this.jumpLimit = 9999;
             noFill();
             stroke('blue');
             strokeWeight(4);

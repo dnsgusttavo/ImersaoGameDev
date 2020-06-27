@@ -13,6 +13,7 @@ let enemyFlyingImage;
 let enemyFlying;
 let score;
 let gameOverImage;
+let currentEnemy = 0;
 
 const matrixEnemy = [
   [0, 0],
@@ -143,7 +144,7 @@ function keyPressed(){
     if(key == "+" && backgroundMusic.output.gain.value < 1)
       backgroundMusic.output.gain.value += 0.05
     if(key == "m")
-      (backgroundMusic.output.gain.value == 0) ? backgroundMusic.output.gain.value = 1 : backgroundMusic.output.gain.value = 0;
+      (masterVolume().value) ? masterVolume(0) : masterVolume(1);
     
 }
 
@@ -154,9 +155,9 @@ function setup() {
   scene = new Scene(backgroundImage,3);
   character = new Character(matrixCharacter, characterImage, 0, 30, 110, 145, 220, 270)
   //(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite
-  const enemy = new Enemy(matrixEnemy, enemyImage, width, 30, 52, 52, 104, 104, 10, 200)
-  const bigEnemy = new Enemy(matrixBigEnemy, bigEnemyImage, width - 400, 25, 200, 170, 400, 340, 10, 2000)
-  const enemyFlying = new Enemy(matrixEnemyFlying, enemyFlyingImage, width, 200, 100, 75, 200, 150, 10, 1200)
+  const enemy = new Enemy(matrixEnemy, enemyImage, width, 30, 52, 52, 104, 104, 10, 100)
+  const bigEnemy = new Enemy(matrixBigEnemy, bigEnemyImage, width - 400, 25, 200, 170, 400, 340, 10, 100)
+  const enemyFlying = new Enemy(matrixEnemyFlying, enemyFlyingImage, width, 200, 100, 75, 200, 150, 10, 100)
   score = new Score();
   enemies.push(enemy);
   enemies.push(bigEnemy);
@@ -165,6 +166,8 @@ function setup() {
   backgroundMusic.loop();
   backgroundMusic.output.gain.value = 0.01;
   frameRate(40);
+
+  masterVolume(0);
 }
 
 function draw() {
@@ -175,32 +178,35 @@ function draw() {
   score.show();
   score.add();
   
-  // bigEnemy.show();
-  // bigEnemy.move();
-  // enemyFlying.show();
-  // enemyFlying.move();
-  
-  enemies.forEach( enemy => {
-      enemy.show();
-      enemy.move();
-
-      if(character.isColliding(enemy,false)){
-          // filter(BLUR, 3) 
-          image(gameOverImage, width/2 - 200, height/2 - 50);
-          score.show();
-          gameOverSound.play();
-          noLoop();
-        }
-
-        // Game IA Bot is disabled
-      //   if(character.willCollide(enemy, false)){
-      //      console.log("[GAME IA] Collision object detected!")
-      //     if(character.jump()) jumpSound.play()
-      // }
-
-  })
+  const enemy = enemies[currentEnemy];
+  const enemyIsVisible = enemy.x  < - enemy.widthChar;
 
   
+  if(enemyIsVisible){
+    currentEnemy++;
+    if(currentEnemy > 2){
+      currentEnemy = 0;
+    }
+
+    enemy.speed = parseInt(random(10,20));
+  }
+  enemy.show();
+  enemy.move();
+
+
+
+  if(character.isColliding(enemy,false)){
+    // filter(BLUR, 3) 
+    image(gameOverImage, width/2 - 200, height/2 - 50);
+    score.show();
+    gameOverSound.play();
+    noLoop();
+  }
+//  Game IA Bot is disabled
+  // if(character.willCollide(enemy, false)){
+  //    console.log("[GAME IA] Collision object detected!")
+  //   if(character.jump()) jumpSound.play()
+  // }
 
 
 }
