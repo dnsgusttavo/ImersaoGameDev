@@ -1,7 +1,7 @@
 class Character extends Animate{
     constructor(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite){
         super(matrix, img, x, charY, widthChar, heightChar, widthSprite, heightSprite);
-        
+        this.x = x;
         this.charY = charY;
         this.yBase = height - heightChar - charY;
         this.y = this.yBase;
@@ -9,8 +9,9 @@ class Character extends Animate{
         this.jumpSpeed = 0;
         this.gravity = 3;
         this.jumps = 0;
-        this.jumpLimit = 3;
+        this.jumpLimit = 2;
         this.jumpHeight = -35
+        this.walkSpeed = 15;
     }
 
     jump(){
@@ -28,20 +29,30 @@ class Character extends Animate{
         
     }
 
+    walkLeft(){
+        this.x -= this.walkSpeed;
+    }
+
+    walkRight(){
+        this.x += this.walkSpeed;
+    }
     setGravity(){
-        this. y += this.jumpSpeed;
+        this.y += this.jumpSpeed;
         this.jumpSpeed += this.gravity;
+        this.x -= this.walkSpeed *0.2;
 
         if(this.y > this.yBase)
             this.y = this.yBase
+        
+        this.x = constrain(this.x, 0, width - this.widthChar);
 
     }
 
     //Function to verify if character will colide
     willCollide(enemy, debugMode = false){
 
-        const precisionChar = 4
-        const precisionEnemy = 1.5
+        const precisionChar = 1.5
+        const precisionEnemy = 1
         const charX2 = this.x + this.widthChar * 0.5;
         const charY2 = this.y + this.heightChar *0.5;
         const charDiameter = this.widthChar * precisionChar;

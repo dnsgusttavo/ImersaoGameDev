@@ -13,7 +13,6 @@ class Animate{
     }
 
     show(){
-        //image(var, screenX, screenY, imageW, ImSageH, imageX, ImageY, showW, showH)
         image(this.img, this.x, this.y, this.widthChar, this.heightChar, this.matrix[this.currentFrame][0], this.matrix[this.currentFrame][1], this.widthSprite, this.heightSprite)
         this.animate();
     }

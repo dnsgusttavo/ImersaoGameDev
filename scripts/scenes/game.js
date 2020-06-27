@@ -5,7 +5,7 @@ class Game{
 
     setup(){
         scene = new Scene(backgroundImage,3);
-        character = new Character(matrixCharacter, characterImage, 0, 30, 110, 145, 220, 270)
+        character = new Character(matrixCharacter, characterImage, 20, 30, 110, 145, 220, 270)
         //(matrix, img, x, widthChar, heightChar, widthSprite, heightSprite
         const enemy = new Enemy(matrixEnemy, enemyImage, width, 30, 52, 52, 104, 104, 10, 100)
         const bigEnemy = new Enemy(matrixBigEnemy, bigEnemyImage, width - 400, 25, 200, 170, 400, 340, 10, 100)
@@ -24,7 +24,7 @@ class Game{
     }
 
     keyPressed(key,jumpSound){
-        if(key === " "){
+        if(key === " " || key == "ArrowUp" || key == 'w'){
             //Reproduce sound only jump
             if(character.jump()){
                 jumpSound.play()
@@ -33,12 +33,19 @@ class Game{
     }
 
     draw(){
-        scene.show();
-  scene.move();
-  character.show();
-  character.setGravity();
-  score.show();
-  score.add();
+      if(keyIsDown(65) || keyIsDown(LEFT_ARROW)){
+        character.walkLeft();
+      }
+      if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)){
+        character.walkRight();
+      }
+
+      scene.show();
+      scene.move();
+      character.show();
+      character.setGravity(); 
+      score.show();
+      score.add();
   
   const enemy = enemies[this.currentEnemy];
   const enemyIsVisible = enemy.x  < - enemy.widthChar;
@@ -54,18 +61,20 @@ class Game{
   }
   enemy.show();
   enemy.move();
-
+  
   if(character.isColliding(enemy,false)){
     // filter(BLUR, 3) 
     image(gameOverImage, width/2 - 200, height/2 - 50);
     score.show();
     gameOverSound.play();
-    noLoop();
+    // noLoop();
   }
-//  Game IA Bot is disabled
+  //  Game IA Bot is disabled
   // if(character.willCollide(enemy, false)){
   //    console.log("[GAME IA] Collision object detected!")
-  //   if(character.jump()) jumpSound.play()
-  // }
-    }
+  //     if(character.jump())
+  //       jumpSound.play()
+  //     character.walkRight();
+  //   }
+  // }  
 }
