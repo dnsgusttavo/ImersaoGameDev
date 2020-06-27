@@ -14,12 +14,15 @@ let enemyFlying;
 let score;
 let gameOverImage;
 let game;
-let currentScene = 'startScreen';
+let currentScene = 'game';
 let scenes;
 let startScreen;
 let startScreenImage;
 let startScreenFont;
 let buttonManager;
+let lifeImage;
+let life;
+let configs;
 
 const matrixEnemy = [
   [0, 0],

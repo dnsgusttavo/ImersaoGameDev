@@ -1,4 +1,6 @@
 function preload(){
+    configs = loadJSON('configs/gameconfig.json');
+    lifeImage = loadImage('./imagens/assets/coracao.png');
     gameOverImage = loadImage('./imagens/assets/game-over.png')
     backgroundImage = loadImage('./imagens/cenario/floresta.png');
     characterImage = loadImage('./imagens/personagem/correndo.png');

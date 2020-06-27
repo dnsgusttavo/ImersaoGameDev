@@ -1,14 +1,14 @@
 
 function keyPressed(){
-
+  console.log(masterVolume().value)
   game.keyPressed(key,jumpSound)
     if(key == "r"){
       window.location.href = window.location.href
     }
-    if(key == "-" && backgroundMusic.output.gain.value > 0.05)
-      backgroundMusic.output.gain.value -= 0.05
-    if(key == "+" && backgroundMusic.output.gain.value < 1)
-      backgroundMusic.output.gain.value += 0.05
+    if(key == "-" && masterVolume().value > 0.2)
+      masterVolume(masterVolume().value - 0.1)
+    if(key == "+" && masterVolume().value < 1)
+      masterVolume(masterVolume().value + 0.1)
     if(key == "m")
       (masterVolume().value) ? masterVolume(0) : masterVolume(1);
     
@@ -26,7 +26,6 @@ function setup() {
   buttonManager = new ButtonManager('START', width/2, height/2);
 
   backgroundMusic.loop();
-  backgroundMusic.output.gain.value = 0.01;
   frameRate(40);
 
   masterVolume(0);

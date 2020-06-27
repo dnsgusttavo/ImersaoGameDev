@@ -12,6 +12,7 @@ class Character extends Animate{
         this.jumpLimit = 2;
         this.jumpHeight = -35
         this.walkSpeed = 15;
+        this.invincible = false;
     }
 
     jump(){
@@ -71,7 +72,18 @@ class Character extends Animate{
         return collideCircleCircle(charX2, charY2, charDiameter, enemyX2, enemyY2, enemyDiameter) 
     }
 
+    invincibleMode(){
+        this.invincible = true;
+        setTimeout(() => {
+            this.invincible = false;
+        }, 1000);
+    }
+
     isColliding(enemy, debugMode = false){
+
+        if(this.invincible){
+            return false;
+        }
 
         const precision = 0.7
         const charX2 = this.x + this.widthChar * 0.5;
