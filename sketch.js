@@ -1,6 +1,5 @@
 
 function keyPressed(){
-  console.log(masterVolume().value)
   game.keyPressed(key,jumpSound)
     if(key == "r"){
       window.location.href = window.location.href
@@ -27,8 +26,7 @@ function setup() {
 
   backgroundMusic.loop();
   frameRate(40);
-
-  masterVolume(0);
+  masterVolume(1);
 }
 
 function draw() {
